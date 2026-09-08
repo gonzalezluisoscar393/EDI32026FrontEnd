@@ -91,6 +91,12 @@ const linksList: EssentialLinkProps[] = [
     caption: 'Community Quasar projects',
     icon: 'favorite',
     link: 'https://awesome.quasar.dev'
+  },
+  {
+    title: 'Table',
+    caption: 'Table now',
+    icon: 'favorite',
+    link: '/table'
   }
 ];
 
