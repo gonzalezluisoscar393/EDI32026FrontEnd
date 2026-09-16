@@ -93,10 +93,10 @@ const linksList: EssentialLinkProps[] = [
     link: 'https://awesome.quasar.dev'
   },
   {
-    title: 'Table',
-    caption: 'Table now',
-    icon: 'favorite',
-    link: '/table'
+    title: 'Autores',
+    caption: 'Listado de autores',
+    icon: 'people',
+    link: '/autores'
   }
 ];
 
