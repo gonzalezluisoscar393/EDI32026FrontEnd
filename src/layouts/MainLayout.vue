@@ -12,10 +12,16 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Biblioteca
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- Con sesion: nombre de usuario y boton para salir. Sin sesion: boton para ingresar -->
+        <template v-if="auth.isAuthenticated">
+          <q-icon name="person" class="q-mr-xs" />
+          <span class="q-mr-md">{{ auth.userName }}</span>
+          <q-btn flat dense label="Salir" icon="logout" @click="onLogout" />
+        </template>
+        <q-btn v-else flat dense label="Ingresar" icon="login" to="/login" />
       </q-toolbar>
     </q-header>
 
@@ -47,7 +53,17 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { useAuthStore } from 'stores/auth';
+
+const auth = useAuthStore();
+const router = useRouter();
+
+async function onLogout() {
+  auth.logout();
+  await router.push('/login');
+}
 
 const linksList: EssentialLinkProps[] = [
   {

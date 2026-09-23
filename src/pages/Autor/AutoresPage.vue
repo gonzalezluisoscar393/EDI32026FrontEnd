@@ -32,7 +32,7 @@
 import { onMounted } from 'vue';
 import type { QTableColumn } from 'quasar';
 import { useAutorStore } from 'stores/autor';
-import type { AutorResponseDto } from 'src/models/AutorResponseDto';
+import type { AutorResponseDto } from 'src/models/Autor/AutorResponseDto';
 
 const autorStore = useAutorStore();
 

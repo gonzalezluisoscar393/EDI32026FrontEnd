@@ -1,43 +1,33 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="flex flex-center">
+    <q-card class="q-pa-md text-center" style="width: 420px; max-width: 90vw">
+      <q-card-section>
+        <q-icon name="menu_book" size="64px" color="primary" />
+        <div class="text-h5 q-mt-sm">Biblioteca</div>
+      </q-card-section>
+
+      <!-- Con sesion: saludo y acceso a la grilla. Sin sesion: invitacion a ingresar -->
+      <q-card-section v-if="auth.isAuthenticated">
+        <div class="text-subtitle1">Hola, {{ auth.userName }}</div>
+        <q-btn
+          label="Ver autores"
+          icon="people"
+          color="primary"
+          class="q-mt-md"
+          to="/autores"
+        />
+      </q-card-section>
+
+      <q-card-section v-else>
+        <div class="text-subtitle1">Inicia sesion para ver el catalogo</div>
+        <q-btn label="Ingresar" icon="login" color="primary" class="q-mt-md" to="/login" />
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { useAuthStore } from 'stores/auth';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+const auth = useAuthStore();
 </script>

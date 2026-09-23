@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { isAxiosError } from 'axios';
 import { api } from 'boot/axios';
-import type { AutorResponseDto } from 'src/models/AutorResponseDto';
+import type { AutorResponseDto } from 'src/models/Autor/AutorResponseDto';
 
 export const useAutorStore = defineStore('autor', () => {
   const autores = ref<AutorResponseDto[]>([]);
