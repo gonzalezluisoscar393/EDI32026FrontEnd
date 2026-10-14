@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import { isAxiosError } from 'axios';
 import { api } from 'boot/axios';
 import type { AutorResponseDto } from 'src/models/Autor/AutorResponseDto';
+import type { AutorRequestDto } from 'src/models/Autor/AutorRequestDto';
+import { notificarExito } from 'src/utils/notificar';
 
 export const useAutorStore = defineStore('autor', () => {
   const autores = ref<AutorResponseDto[]>([]);
@@ -30,5 +32,51 @@ export const useAutorStore = defineStore('autor', () => {
     }
   }
 
-  return { autores, loading, error, fetchAll };
+  /** GET api/Autores/ById?Id=... Devuelve el autor o null si no existe. */
+  async function fetchById(id: number): Promise<AutorResponseDto | null> {
+    loading.value = true;
+    try {
+      const { data } = await api.get<AutorResponseDto>(`/Autores/ById?Id=${id}`);
+      return data;
+    } catch {
+      return null;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  /** POST api/Autores */
+  async function create(autor: AutorRequestDto) {
+    loading.value = true;
+    try {
+      await api.post('/Autores', autor);
+      notificarExito('Autor creado');
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  /** PUT api/Autores?Id=... */
+  async function update(id: number, autor: AutorRequestDto) {
+    loading.value = true;
+    try {
+      await api.put(`/Autores?Id=${id}`, autor);
+      notificarExito('Autor modificado');
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  /** DELETE api/Autores?Id=... (se llama borrar porque delete es palabra reservada) */
+  async function borrar(id: number) {
+    loading.value = true;
+    try {
+      await api.delete(`/Autores?Id=${id}`);
+      notificarExito('Autor eliminado');
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  return { autores, loading, error, fetchAll, fetchById, create, update, borrar };
 });
