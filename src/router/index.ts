@@ -32,11 +32,11 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  // Guard: antes de entrar a cualquier ruta, si pide sesion y no hay token, va al login
+  // Guard: si la ruta pide sesion y no hay token, va al home, donde se abre el popup de login
   Router.beforeEach((to) => {
     const auth = useAuthStore();
     if (to.meta.requiresAuth && !auth.isAuthenticated) {
-      return '/login';
+      return '/';
     }
     return true;
   });

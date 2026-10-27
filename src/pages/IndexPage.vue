@@ -20,7 +20,6 @@
 
       <q-card-section v-else>
         <div class="text-subtitle1">Inicia sesion para ver el catalogo</div>
-        <q-btn label="Ingresar" icon="login" color="primary" class="q-mt-md" to="/login" />
       </q-card-section>
     </q-card>
   </q-page>
